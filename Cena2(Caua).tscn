@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://dodge_assets/art/playerGrey_up1.png" type="Texture" id=1]
 [ext_resource path="res://dodge_assets/art/playerGrey_up2.png" type="Texture" id=2]
@@ -39,8 +39,26 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 7 ) ],
+"loop": true,
+"name": "heaven",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "hell",
+"speed": 5.0
+} ]
+
 [node name="Node2D" type="Node2D"]
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Eiki" type="AnimatedSprite" parent="."]
 position = Vector2( 548.041, 175.093 )
 frames = SubResource( 1 )
+
+[node name="Judged" type="AnimatedSprite" parent="."]
+position = Vector2( 531.127, 414.538 )
+frames = SubResource( 2 )
+animation = "hell"
