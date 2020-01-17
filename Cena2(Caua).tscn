@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Minigame2.gd" type="Script" id=1]
 [ext_resource path="res://Cena2_Enemy.tscn" type="PackedScene" id=2]
@@ -6,11 +6,12 @@
 [ext_resource path="res://original_assets/minigame2/eiki_dbrava.png" type="Texture" id=4]
 [ext_resource path="res://original_assets/minigame2/eiki_didle.png" type="Texture" id=5]
 [ext_resource path="res://original_assets/minigame2/eiki_efeliz.png" type="Texture" id=6]
-[ext_resource path="res://dodge_assets/art/enemyWalking_1.png" type="Texture" id=7]
-[ext_resource path="res://dodge_assets/art/enemyWalking_2.png" type="Texture" id=8]
-[ext_resource path="res://dodge_assets/art/enemyFlyingAlt_1.png" type="Texture" id=9]
-[ext_resource path="res://dodge_assets/art/enemyFlyingAlt_2.png" type="Texture" id=10]
+[ext_resource path="res://dodge_assets/art/enemyFlyingAlt_1.png" type="Texture" id=7]
+[ext_resource path="res://dodge_assets/art/enemyFlyingAlt_2.png" type="Texture" id=8]
+[ext_resource path="res://dodge_assets/art/enemyWalking_1.png" type="Texture" id=9]
+[ext_resource path="res://dodge_assets/art/enemyWalking_2.png" type="Texture" id=10]
 [ext_resource path="res://original_assets/minigame2/eiki_ebrava.png" type="Texture" id=11]
+[ext_resource path="res://dodge_assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=12]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -31,27 +32,37 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 7 ), ExtResource( 8 ) ],
 "loop": true,
-"name": "victory",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ) ],
-"loop": true,
 "name": "loss",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 11 ) ],
-"loop": true,
-"name": "right_error",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "left_error",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ) ],
+"loop": true,
+"name": "victory",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "right_error",
+"speed": 5.0
 } ]
 
 [sub_resource type="LineShape2D" id=2]
 d = 29.3594
+
+[sub_resource type="DynamicFont" id=3]
+size = 120
+outline_color = Color( 0.996078, 0.282353, 0.282353, 1 )
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 120
+outline_color = Color( 0.0901961, 0.996078, 0.243137, 1 )
+font_data = ExtResource( 12 )
 
 [node name="Minigame2" type="Node2D"]
 script = ExtResource( 1 )
@@ -74,8 +85,40 @@ position = Vector2( 545.445, 190.701 )
 shape = SubResource( 2 )
 
 [node name="TotalTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 7.29
 one_shot = true
+
+[node name="LossLabel" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 174.839
+margin_top = 199.418
+margin_right = 896.839
+margin_bottom = 344.418
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 0.0862745, 0.0862745, 1 )
+text = "YOU LOSE!"
+align = 1
+uppercase = true
+
+[node name="WinLabel" type="Label" parent="."]
+visible = false
+margin_left = 227.918
+margin_top = 196.75
+margin_right = 862.918
+margin_bottom = 341.75
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.133333, 0.92549, 0.219608, 1 )
+text = "YOU WIN!"
+align = 1
+[connection signal="fail" from="." to="Node2D" method="stopTimer"]
+[connection signal="fail" from="." to="Eiki" method="_on_Minigame2_fail"]
+[connection signal="win" from="." to="Node2D" method="stopTimer"]
+[connection signal="win" from="." to="Eiki" method="_on_Minigame2_win"]
+[connection signal="correct" from="Node2D" to="." method="_on_Node2D_correct"]
 [connection signal="wrong" from="Node2D" to="." method="_on_Node2D_wrong"]
 [connection signal="heaven" from="Eiki" to="Node2D" method="_on_Eiki_heaven"]
 [connection signal="hell" from="Eiki" to="Node2D" method="_on_Eiki_hell"]
