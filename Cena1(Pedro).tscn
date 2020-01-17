@@ -1,3 +1,82 @@
-[gd_scene format=2]
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Cena1(Pedro).gd" type="Script" id=1]
+[ext_resource path="res://dodge_assets/art/enemySwimming_2.png" type="Texture" id=2]
+[ext_resource path="res://dodge_assets/art/enemySwimming_1.png" type="Texture" id=3]
+[ext_resource path="res://dodge_assets/art/playerGrey_walk2.png" type="Texture" id=4]
+[ext_resource path="res://dodge_assets/art/playerGrey_walk1.png" type="Texture" id=5]
+[ext_resource path="res://dodge_assets/art/playerGrey_up1.png" type="Texture" id=6]
+[ext_resource path="res://dodge_assets/art/playerGrey_up2.png" type="Texture" id=7]
+[ext_resource path="res://dodge_assets/art/enemyFlyingAlt_1.png" type="Texture" id=8]
+[ext_resource path="res://dodge_assets/art/enemyWalking_2.png" type="Texture" id=9]
+[ext_resource path="res://Cena1_Enemy.tscn" type="PackedScene" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "child",
+"speed": 0.1
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "old",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "hit",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "adult",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "failed",
+"speed": 5.13
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "waiting",
+"speed": 5.0
+} ]
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Kogasa" type="AnimatedSprite" parent="."]
+position = Vector2( 227.427, 430.734 )
+scale = Vector2( 1.10363, 1 )
+frames = SubResource( 1 )
+animation = "adult"
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 4.12
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.41
+
+[node name="EnemySpawn" parent="." instance=ExtResource( 10 )]
+position = Vector2( 275.33, -93.3883 )
+
+[node name="WaitingTimer" type="Timer" parent="."]
+wait_time = 1.65
+one_shot = true
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.88
+one_shot = true
+
+[node name="MissTimer" type="Timer" parent="."]
+wait_time = 2.12
+one_shot = true
+[connection signal="hit" from="." to="EnemySpawn" method="_on_Node2D_hit"]
+[connection signal="hit" from="." to="." method="_on_Node2D_hit"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[connection signal="timeout" from="WaitingTimer" to="." method="_on_WaitingTimer_timeout"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
+[connection signal="timeout" from="MissTimer" to="." method="_on_MissTimer_timeout"]
