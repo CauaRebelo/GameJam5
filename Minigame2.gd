@@ -5,7 +5,13 @@ signal win
 
 var enemies = 3 #(totalloop - 1) + 3
 
+const judged = preload("res://Cena1_Enemy.tscn")
+
 func _ready():
+	var enemy = judged.instance()
+	get_node("Minigame2").add_child(enemy)
+	$Minigame2.connect("fail", enemy, "stopTimer")
+	$Minigame2.connect("win", enemy, "stopTimer")
 	$TotalTimer.start()
 	$LossLabel.hide()
 	$WinLabel.hide()
