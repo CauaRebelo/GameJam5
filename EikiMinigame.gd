@@ -9,8 +9,6 @@ var win = 0
 
 func _ready():
 	$AnimatedSprite.animation = "default"
-	$Eiki.connect("heaven", enemy, "_on_Eiki_heaven")
-	$Eiki.connect("hell", enemy, "_on_Eiki_hell")
 
 func _input(event):
 	if Input.is_action_pressed("ui_right"):
