@@ -30,13 +30,13 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "adult",
-"speed": 5.0
+"name": "failed",
+"speed": 5.13
 }, {
 "frames": [ ExtResource( 8 ) ],
 "loop": true,
-"name": "failed",
-"speed": 5.13
+"name": "adult",
+"speed": 5.0
 }, {
 "frames": [ ExtResource( 9 ) ],
 "loop": true,
@@ -53,30 +53,31 @@ scale = Vector2( 1.10363, 1 )
 frames = SubResource( 1 )
 animation = "adult"
 
-[node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 4.12
-
-[node name="AttackTimer" type="Timer" parent="."]
-wait_time = 2.41
-
-[node name="EnemySpawn" parent="." instance=ExtResource( 10 )]
-position = Vector2( 275.33, -93.3883 )
+[node name="EnemySpawn1" parent="." instance=ExtResource( 10 )]
+position = Vector2( -331.21, -256.89 )
 
 [node name="WaitingTimer" type="Timer" parent="."]
 wait_time = 1.65
 one_shot = true
 
-[node name="HitTimer" type="Timer" parent="."]
-wait_time = 0.88
-one_shot = true
+[node name="EnemySpawn2" parent="." instance=ExtResource( 10 )]
+position = Vector2( -17.5809, -256.681 )
 
-[node name="MissTimer" type="Timer" parent="."]
-wait_time = 2.12
-one_shot = true
-[connection signal="hit" from="." to="EnemySpawn" method="_on_Node2D_hit"]
-[connection signal="hit" from="." to="." method="_on_Node2D_hit"]
-[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]
-[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
+[node name="EnemySpawn3" parent="." instance=ExtResource( 10 )]
+position = Vector2( 321.73, -253.165 )
+[connection signal="adult" from="." to="EnemySpawn1" method="_on_Node2D_adult"]
+[connection signal="adult" from="." to="EnemySpawn2" method="_on_Node2D_adult"]
+[connection signal="adult" from="." to="EnemySpawn3" method="_on_Node2D_adult"]
+[connection signal="child" from="." to="EnemySpawn1" method="_on_Node2D_child"]
+[connection signal="child" from="." to="EnemySpawn2" method="_on_Node2D_child"]
+[connection signal="child" from="." to="EnemySpawn3" method="_on_Node2D_child"]
+[connection signal="old" from="." to="EnemySpawn1" method="_on_Node2D_old"]
+[connection signal="old" from="." to="EnemySpawn2" method="_on_Node2D_old"]
+[connection signal="old" from="." to="EnemySpawn3" method="_on_Node2D_old"]
+[connection signal="hit" from="EnemySpawn1" to="." method="_on_EnemySpawn1_hit"]
+[connection signal="miss" from="EnemySpawn1" to="." method="_on_EnemySpawn1_miss"]
 [connection signal="timeout" from="WaitingTimer" to="." method="_on_WaitingTimer_timeout"]
-[connection signal="timeout" from="HitTimer" to="." method="_on_HitTimer_timeout"]
-[connection signal="timeout" from="MissTimer" to="." method="_on_MissTimer_timeout"]
+[connection signal="hit" from="EnemySpawn2" to="." method="_on_EnemySpawn2_hit"]
+[connection signal="miss" from="EnemySpawn2" to="." method="_on_EnemySpawn2_miss"]
+[connection signal="hit" from="EnemySpawn3" to="." method="_on_EnemySpawn3_hit"]
+[connection signal="miss" from="EnemySpawn3" to="." method="_on_EnemySpawn3_miss"]

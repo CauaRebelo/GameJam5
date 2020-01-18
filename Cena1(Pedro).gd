@@ -1,47 +1,44 @@
 extends Node2D
-export (PackedScene) var Cena1_Enemy
+#export (PackedScene) var Cena1_Enemy
 
-signal hit
+signal child
+signal adult
+signal old
+
+signal defeat
+signal win
+
 var speed = 10
-var enemy_num = 0
-var enemy_weakness = 1 # Trocar enemy weakness por acesso do random_number do objeto mob
+var enemy_defeated = 0
+var enemy_max = 5
+var enemy1 = false
+var enemy2 = false
+var enemy3 = false
 
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$SpawnTimer.start()
 	$Kogasa.animation = "waiting"
-
+	
+	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_pressed("ui_left"):
+	if Input.is_action_just_pressed("ui_left"):
 		$Kogasa.animation = "child"
-		attack(1)
-	if Input.is_action_pressed("ui_up"):
+		emit_signal("child")
+		wrongKey()
+	if Input.is_action_pressed("ui_down"):
 		$Kogasa.animation = "adult"
-		attack(2)
+		emit_signal("adult")
+		wrongKey()
 	if Input.is_action_pressed("ui_right"):
 		$Kogasa.animation = "old"
-		attack(3)
-		
-	
-func attack(type):
-	if(type == 1): # alterar porque mudei pra testar
-		emit_signal("hit") # Sinal para eliminar o mob
-		enemy_num -= 1
-		$HitTimer.start()
-	else:
-		$MissTimer.start()
-	#	emit_signal("fail") # retirar hp 
-		enemy_num -= 1
-
-func _on_SpawnTimer_timeout():
-	if(enemy_num <= 3):
-		var enemy = Cena1_Enemy.instance()
-		add_child(enemy)
-		enemy_num +=1 
-		
+		emit_signal("old")
+		wrongKey()
+	if(enemy_defeated == enemy_max):
+		emit_signal("win")
+		#hide()
 
 
 #func _on_AttackTimer_timeout():
@@ -53,10 +50,37 @@ func _on_WaitingTimer_timeout():
 	$Kogasa.animation = "waiting"
 
 
-func _on_HitTimer_timeout():
-	$Kogasa.animation = "hit"
+
+
+func _on_EnemySpawn1_hit():
+	enemy1 = true
 	
 
 
-func _on_MissTimer_timeout():
-	$Kogasa.animation = "miss"
+func _on_EnemySpawn1_miss():
+	emit_signal("defeat")
+
+
+func _on_EnemySpawn2_hit():
+	enemy2 = true
+
+
+func _on_EnemySpawn2_miss():
+	emit_signal("defeat")
+
+
+func _on_EnemySpawn3_hit():
+	enemy3 = true
+
+func _on_EnemySpawn3_miss():
+	emit_signal("defeat")
+	#hide()
+
+func wrongKey():
+	if(enemy1 == false && enemy2 == false && enemy3 == false):
+		emit_signal("defeat")
+	#	hide() # game over
+	enemy1 = false
+	enemy2 = false
+	enemy3 = false
+	enemy_defeated += 1

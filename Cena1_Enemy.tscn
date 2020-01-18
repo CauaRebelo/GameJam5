@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Cena1_Enemy.gd" type="Script" id=1]
-[ext_resource path="res://dodge_assets/art/enemySwimming_1.png" type="Texture" id=2]
-[ext_resource path="res://dodge_assets/art/playerGrey_up2.png" type="Texture" id=3]
+[ext_resource path="res://dodge_assets/art/enemyWalking_1.png" type="Texture" id=2]
+[ext_resource path="res://dodge_assets/art/playerGrey_walk1.png" type="Texture" id=3]
+[ext_resource path="res://dodge_assets/art/playerGrey_up2.png" type="Texture" id=4]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -11,18 +12,18 @@ animations = [ {
 "name": "child",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 3 ) ],
 "loop": true,
 "name": "old",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "adult",
 "speed": 5.0
 } ]
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=2]
 script/source = "extends AnimatedSprite
 
 var enemy_types = [\"child\", \"adult\", \"old\"]
@@ -45,7 +46,7 @@ func _on_Node2D_hit():
 	queue_free()
 "
 
-[sub_resource type="CapsuleShape2D" id=2]
+[sub_resource type="CapsuleShape2D" id=3]
 
 [node name="Cena1_Enemy" type="RigidBody2D"]
 gravity_scale = 0.0
@@ -55,8 +56,17 @@ script = ExtResource( 1 )
 position = Vector2( 557.314, 390.295 )
 frames = SubResource( 1 )
 animation = "adult"
-script = SubResource( 3 )
+script = SubResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 555.556, 390.295 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
+
+[node name="CDTimer" type="Timer" parent="."]
+wait_time = 1.7
+one_shot = true
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 4.5
+[connection signal="timeout" from="CDTimer" to="." method="_on_CDTimer_timeout"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
