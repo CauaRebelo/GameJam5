@@ -4,8 +4,8 @@
 [ext_resource path="res://original_assets/minigame1/kogasa/kogasa1.png" type="Texture" id=2]
 [ext_resource path="res://original_assets/minigame1/kogasa/kogasa2.png" type="Texture" id=3]
 [ext_resource path="res://original_assets/minigame1/kogasa/kogasa3.png" type="Texture" id=4]
-[ext_resource path="res://original_assets/minigame1/kogasa/kogasa1revertido.png" type="Texture" id=5]
-[ext_resource path="res://original_assets/minigame1/kogasa/kogasa4.png" type="Texture" id=6]
+[ext_resource path="res://original_assets/minigame1/kogasa/kogasa4.png" type="Texture" id=5]
+[ext_resource path="res://original_assets/minigame1/kogasa/kogasa1revertido.png" type="Texture" id=6]
 [ext_resource path="res://Cena1_Enemy.tscn" type="PackedScene" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -25,15 +25,15 @@ animations = [ {
 "name": "old",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "failed",
-"speed": 5.13
-}, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 5 ) ],
 "loop": true,
 "name": "waiting",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "failed",
+"speed": 5.13
 } ]
 
 [node name="Node2D" type="Node2D"]
@@ -44,7 +44,6 @@ position = Vector2( 235.215, 483.298 )
 scale = Vector2( 0.15, 0.15 )
 frames = SubResource( 1 )
 animation = "failed"
-frame = 1
 playing = true
 
 [node name="EnemySpawn1" parent="." instance=ExtResource( 7 )]
@@ -59,6 +58,20 @@ position = Vector2( -17.5809, -256.681 )
 
 [node name="EnemySpawn3" parent="." instance=ExtResource( 7 )]
 position = Vector2( 321.73, -253.165 )
+
+[node name="PopupDialog" type="PopupDialog" parent="."]
+visible = true
+margin_left = 213.0
+margin_top = 245.0
+margin_right = 337.0
+margin_bottom = 318.0
+rect_pivot_offset = Vector2( 96.102, 100.979 )
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PopupDialog"]
+margin_left = 17.2774
+margin_top = 40.7329
+margin_right = 95.2774
+margin_bottom = 65.7329
 [connection signal="adult" from="." to="EnemySpawn1" method="_on_Node2D_adult"]
 [connection signal="adult" from="." to="EnemySpawn2" method="_on_Node2D_adult"]
 [connection signal="adult" from="." to="EnemySpawn3" method="_on_Node2D_adult"]
