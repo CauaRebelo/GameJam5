@@ -15,10 +15,12 @@ func _ready():
 	$EnemySprite.animation = enemy_types[random_number]
 	exist = true
 	$AttackTimer.start()
+	$Barra/TextureProgress.max_value = $AttackTimer.wait_time * 10
 	
 func gamb():
 	random_number = randi() % enemy_types.size() 
 	$EnemySprite.animation = enemy_types[random_number]
+	$Barra/TextureProgress.value = 0
 	show()
 	exist = true
 	$AttackTimer.start()

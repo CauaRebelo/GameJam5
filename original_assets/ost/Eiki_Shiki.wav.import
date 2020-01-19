@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Eiki_Shiki.wav-68ab94ea6d1e82f09c1eed25f729f36e.sample"
+
+[deps]
+
+source_file="res://original_assets/ost/Eiki_Shiki.wav"
+dest_files=[ "res://.import/Eiki_Shiki.wav-68ab94ea6d1e82f09c1eed25f729f36e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
