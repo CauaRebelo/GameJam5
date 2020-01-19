@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Minigame2.gd" type="Script" id=1]
 [ext_resource path="res://EikiMinigame.gd" type="Script" id=2]
@@ -7,6 +7,13 @@
 [ext_resource path="res://original_assets/minigame2/eiki_efeliz.png" type="Texture" id=5]
 [ext_resource path="res://original_assets/minigame2/eiki_eidle.png" type="Texture" id=6]
 [ext_resource path="res://dodge_assets/fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://original_assets/ost/Eiki_Shiki.wav" type="AudioStream" id=8]
+[ext_resource path="res://original_assets/minigame2/templo_eiki.png" type="Texture" id=9]
+[ext_resource path="res://original_assets/minigame2/mesa.png" type="Texture" id=10]
+[ext_resource path="res://original_assets/hud/arrow2.png" type="Texture" id=11]
+[ext_resource path="res://original_assets/hud/arrow.png" type="Texture" id=12]
+[ext_resource path="res://original_assets/minigame2/humano_1.png" type="Texture" id=13]
+[ext_resource path="res://original_assets/minigame2/humano_2.png" type="Texture" id=14]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -52,10 +59,9 @@ mode = 1
 script = ExtResource( 2 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Eiki"]
-position = Vector2( 509.694, 206.513 )
+position = Vector2( 575.284, 207.729 )
 scale = Vector2( 0.170744, 0.170744 )
 frames = SubResource( 1 )
-animation = "right_error"
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Eiki"]
@@ -92,6 +98,69 @@ custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0.133333, 0.92549, 0.219608, 1 )
 text = "YOU WIN!"
 align = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+autoplay = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground"]
+position = Vector2( 514.509, 297.615 )
+scale = Vector2( 0.510953, 0.375094 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sprite2" type="Sprite" parent="ParallaxBackground"]
+scale = Vector2( 0.2, 0.2 )
+
+[node name="mesa" type="Sprite" parent="ParallaxBackground/Sprite2"]
+position = Vector2( 2821.89, 1367.2 )
+texture = ExtResource( 10 )
+
+[node name="PopupDialog" type="PopupDialog" parent="."]
+visible = true
+margin_left = 730.305
+margin_top = 24.4404
+margin_right = 994.305
+margin_bottom = 238.44
+rect_pivot_offset = Vector2( -470, -92 )
+
+[node name="TextureRect" type="TextureRect" parent="PopupDialog"]
+margin_left = 37.7578
+margin_top = 151.735
+margin_right = 375.758
+margin_bottom = 495.735
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 11 )
+
+[node name="TextureRect2" type="TextureRect" parent="PopupDialog"]
+margin_left = 183.791
+margin_top = 151.735
+margin_right = 521.791
+margin_bottom = 495.735
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 12 )
+
+[node name="TextureRect3" type="TextureRect" parent="PopupDialog"]
+modulate = Color( 1, 0.447059, 0.447059, 1 )
+margin_left = -40.6177
+margin_top = -23.4017
+margin_right = 1959.38
+margin_bottom = 1576.6
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 13 )
+
+[node name="TextureRect4" type="TextureRect" parent="PopupDialog"]
+modulate = Color( 0.415686, 0.560784, 1, 1 )
+margin_left = 104.144
+margin_top = -23.402
+margin_right = 2104.14
+margin_bottom = 1576.6
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 14 )
 [connection signal="fail" from="." to="Eiki" method="_on_Minigame2_fail"]
 [connection signal="win" from="." to="Eiki" method="_on_Minigame2_win"]
 [connection signal="timeout" from="TotalTimer" to="." method="_on_TotalTimer_timeout"]

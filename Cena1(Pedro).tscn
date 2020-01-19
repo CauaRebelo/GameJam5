@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Cena1(Pedro).gd" type="Script" id=1]
 [ext_resource path="res://original_assets/minigame1/kogasa/kogasa1.png" type="Texture" id=2]
@@ -7,6 +7,14 @@
 [ext_resource path="res://original_assets/minigame1/kogasa/kogasa4.png" type="Texture" id=5]
 [ext_resource path="res://original_assets/minigame1/kogasa/kogasa1revertido.png" type="Texture" id=6]
 [ext_resource path="res://Cena1_Enemy.tscn" type="PackedScene" id=7]
+[ext_resource path="res://original_assets/hud/arrow.png" type="Texture" id=8]
+[ext_resource path="res://original_assets/hud/arrow2.png" type="Texture" id=9]
+[ext_resource path="res://original_assets/hud/arrow3.png" type="Texture" id=10]
+[ext_resource path="res://original_assets/minigame1/vitima/v1.png" type="Texture" id=11]
+[ext_resource path="res://original_assets/minigame1/vitima/v2.png" type="Texture" id=12]
+[ext_resource path="res://original_assets/minigame1/vitima/v3.png" type="Texture" id=13]
+[ext_resource path="res://original_assets/ost/Eiki_Shiki.wav" type="AudioStream" id=14]
+[ext_resource path="res://original_assets/minigame1/templo_kogasa.png" type="Texture" id=15]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -44,6 +52,7 @@ position = Vector2( 235.215, 483.298 )
 scale = Vector2( 0.15, 0.15 )
 frames = SubResource( 1 )
 animation = "failed"
+frame = 1
 playing = true
 
 [node name="EnemySpawn1" parent="." instance=ExtResource( 7 )]
@@ -61,17 +70,92 @@ position = Vector2( 321.73, -253.165 )
 
 [node name="PopupDialog" type="PopupDialog" parent="."]
 visible = true
-margin_left = 213.0
-margin_top = 245.0
-margin_right = 337.0
-margin_bottom = 318.0
+margin_left = 497.0
+margin_top = 331.0
+margin_right = 816.0
+margin_bottom = 496.0
 rect_pivot_offset = Vector2( 96.102, 100.979 )
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PopupDialog"]
-margin_left = 17.2774
-margin_top = 40.7329
-margin_right = 95.2774
-margin_bottom = 65.7329
+[node name="Right" type="TextureRect" parent="PopupDialog"]
+margin_left = 234.718
+margin_top = 116.0
+margin_right = 572.718
+margin_bottom = 460.0
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 8 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Left" type="TextureRect" parent="PopupDialog"]
+margin_left = 29.895
+margin_top = 116.0
+margin_right = 367.895
+margin_bottom = 460.0
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Down" type="TextureRect" parent="PopupDialog"]
+margin_left = 168.25
+margin_top = 151.0
+margin_right = 506.25
+margin_bottom = 495.0
+rect_rotation = 180.0
+rect_scale = Vector2( 0.1, 0.1 )
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Child" type="TextureRect" parent="PopupDialog"]
+margin_left = -22.0615
+margin_top = -5.11816
+margin_right = 1977.94
+margin_bottom = 1594.88
+rect_scale = Vector2( 0.07, 0.07 )
+texture = ExtResource( 11 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Adult" type="TextureRect" parent="PopupDialog"]
+margin_left = 84.146
+margin_top = -5.11816
+margin_right = 2084.15
+margin_bottom = 1594.88
+rect_scale = Vector2( 0.07, 0.07 )
+texture = ExtResource( 12 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Old" type="TextureRect" parent="PopupDialog"]
+margin_left = 184.788
+margin_top = -5.11816
+margin_right = 2184.79
+margin_bottom = 1594.88
+rect_scale = Vector2( 0.07, 0.07 )
+texture = ExtResource( 13 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+autoplay = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Sprite" type="Sprite" parent="ParallaxBackground"]
+position = Vector2( 511.744, 298.056 )
+scale = Vector2( 0.512679, 0.373796 )
+texture = ExtResource( 15 )
+__meta__ = {
+"_edit_lock_": true
+}
 [connection signal="adult" from="." to="EnemySpawn1" method="_on_Node2D_adult"]
 [connection signal="adult" from="." to="EnemySpawn2" method="_on_Node2D_adult"]
 [connection signal="adult" from="." to="EnemySpawn3" method="_on_Node2D_adult"]

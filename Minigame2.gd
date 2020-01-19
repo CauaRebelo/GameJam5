@@ -21,6 +21,7 @@ func _ready():
 	$TotalTimer.start()
 	$LossLabel.hide()
 	$WinLabel.hide()
+	$PopupDialog.show()
 
 func _on_TotalTimer_timeout():
 	emit_signal("fail")
